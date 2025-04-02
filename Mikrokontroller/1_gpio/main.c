@@ -40,12 +40,12 @@ int main(){
     while (1) {
         if ((GPIO->IN & (1 << 13)) == 0) { 
             for (int i = 17; i <= 20; i++) {
-                GPIO->OUTSET = (1 << i);
+                GPIO->OUTCLR = (1 << i);
             }
         } 
         else if ((GPIO->IN & (1 << 14)) == 0) { 
             for (int i = 17; i <= 20; i++) {
-                GPIO->OUTCLR = (1 << i);
+                GPIO->OUTSET = (1 << i);
             }
         }
 
