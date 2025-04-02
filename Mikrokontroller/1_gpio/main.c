@@ -55,6 +55,7 @@ int main(){
 	}
 	return 0;
 }
+}
 
 
 //oppgave 1.2: pinnene SW1 (button 1) og SW2 (button 2) er henholdsvis tilkoblet pin Po.13 og Po.14. 
