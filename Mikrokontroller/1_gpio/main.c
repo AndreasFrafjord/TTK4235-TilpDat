@@ -18,8 +18,8 @@ typedef struct {
 } NRF_GPIO_REGS;
 
 void button_init(){ 
-	GPIO->PIN_CNF[0x734] = (0 << 0) | (3 << 2);
-	GPIO->PIN_CNF[0x738] = (0 << 0) | (3 << 2);
+	GPIO->PIN_CNF[13] = (0 << 0) | (3 << 2);
+	GPIO->PIN_CNF[14] = (0 << 0) | (3 << 2);
 	// Fill inn the configuration for the remaining buttons 
 }
 
@@ -37,7 +37,6 @@ int main(){
 
 
 	int sleep = 0;
-	while(1){
     while (1) {
         if ((GPIO->IN & (1 << 13)) == 0) { 
             for (int i = 17; i <= 20; i++) {
@@ -54,7 +53,6 @@ int main(){
 		while(--sleep); // Delay
 	}
 	return 0;
-}
 }
 
 
