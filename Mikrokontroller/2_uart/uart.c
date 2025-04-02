@@ -1,4 +1,7 @@
-# include <stdint.h>
+#include <stdint.h>
+#include "uart.h"
+#include "gpio.h"
+
 #define UART ((NRF_UART_REGS*)0x40002000)
 
 
@@ -40,3 +43,27 @@
     volatile uint32_t RESERVED11[17];
     volatile uint32_t CONFIG;
  }NRF_UART_REGS;
+
+ void uart_init(){
+    GPIO -> PIN_CNF[8] = (0 << 0) | (1 << 2); // RXD (recive data)
+    GPIO -> PIN_CNF[6] = (1 << 0) | (1 << 2); // TXD (transmit data)
+
+    UART -> PSELRXD = 8; // RXD pin
+    UART -> PSELTXD = 6; // TXD pin
+
+    UART -> BAUDRATE = 0x00275000; // From the datasheet, 9600 baud
+    UART -> PSELERTS = 0xFFFFFFFF; // No flow control
+    UART -> PSELCTS = 0xFFFFFFFF; // No flow control
+
+    UART -> ENABLE = 4; // Enable the UART
+
+    UART -> TASKS_STARTRX = 1; // Start receiving    
+ }
+
+ void uart_send(char letter){
+
+ }
+
+ void uart_read(){
+
+ }
