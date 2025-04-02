@@ -1,4 +1,4 @@
-#define UART ((NRF_UART_REGS*)0x40002000)
+
 
 
 
