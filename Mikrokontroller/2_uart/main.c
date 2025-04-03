@@ -1,4 +1,16 @@
 #include "uart.h"
+#include "gpio.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <sys/types.h> // For ssize_t
+
+
+int main(){
+	// Configure LED Matrix
+	for(int i = 17; i <= 20; i++){
+		GPIO->DIRSET = (1 << i);
+		GPIO->OUTCLR = (1 << i);
+	}
 
 
 
