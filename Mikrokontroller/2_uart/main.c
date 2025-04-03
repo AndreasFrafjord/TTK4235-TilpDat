@@ -4,37 +4,31 @@
 #include <stdio.h>
 
 int main() {
-    // Konfigurer LED-matrisen som utganger og slå den av
     for (int i = 17; i <= 20; i++) {
-        GPIO->DIRSET = (1 << i);  // Sett som utgang
-        GPIO->OUTCLR = (1 << i); // Start med LED-matrisen av
+        GPIO->DIRSET = (1 << i); 
+        GPIO->OUTCLR = (1 << i); // skrur dette leddmatrisen av eller på???
     }
 
-    // Konfigurer knappene som innganger med pull-up
-    GPIO->PIN_CNF[13] = (0 << 0) | (3 << 2); // SW1
-    GPIO->PIN_CNF[14] = (0 << 0) | (3 << 2); // SW2
 
-    // Initialiser UART
+    GPIO->PIN_CNF[13] = (0 << 0) | (3 << 2); // Button 1
+    GPIO->PIN_CNF[14] = (0 << 0) | (3 << 2); // Button 2
+
     uart_init();
 
-    int led_on = 0;  // Variabel for å holde styr på LED-status
+    int led_on = 0; 
     int sleep = 0;
 
     while (1) {
-        // Sjekk om SW1 (P0.13) er trykket
-        if ((GPIO->IN & (1 << 13)) == 0) { 
-            uart_send('A'); // Send bokstaven 'A' via UART
+        if ((GPIO->IN & (1 << 13)) == 0) {  //sjekker om button 1 er trykket
+            uart_send('A'); 
         } 
-        // Sjekk om SW2 (P0.14) er trykket
-        else if ((GPIO->IN & (1 << 14)) == 0) {
-            uart_send('B'); // Send bokstaven 'B' via UART
+        else if ((GPIO->IN & (1 << 14)) == 0) { //sjekker om button 2 er trykket
+            uart_send('B'); 
         }
 
-        // Sjekk om data er mottatt via UART
-        if (UART->EVENTS_RXDRDY) {  // Sjekk om data er mottatt
-            UART->EVENTS_RXDRDY = 0; // Nullstill RXDRDY
+        if (UART->EVENTS_RXDRDY) {  // Sjekk om noe data er mottatt
+            UART->EVENTS_RXDRDY = 0; // Nullstill reciving data
 
-            // Skru på eller av LED-matrisen basert på nåværende status
             if (led_on) {
                 for (int i = 17; i <= 20; i++) { // Slå av alle LED-ene
                     GPIO->OUTSET = (1 << i);
@@ -48,12 +42,11 @@ int main() {
             }
         }
 
-        // Forsinkelse for å unngå rask toggling
         sleep = 10000;
         while (--sleep);
     }
 
-    return 0; // Dette nås aldri, men kan stå som formalitet
+    return 0; 
 }
 
 // oppgave 2.2: Pinne nummer P0.08 er merket UART_INT_RX, og pinne nummer P0. 06 
