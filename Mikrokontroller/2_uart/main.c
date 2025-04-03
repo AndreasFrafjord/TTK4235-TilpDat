@@ -10,8 +10,8 @@ int main() {
     }
 
 
-    GPIO->PIN_CNF[13] = (0 << 0) | (3 << 2); // Button 1
-    GPIO->PIN_CNF[14] = (0 << 0) | (3 << 2); // Button 2
+    GPIO->PIN_CNF[13] = 0 | (3 << 2); // Button 1
+    GPIO->PIN_CNF[14] = 0 | (3 << 2); // Button 2
 
     uart_init();
 
@@ -25,9 +25,9 @@ int main() {
         else if ((GPIO->IN & (1 << 14)) == 0) { //sjekker om button 2 er trykket
             uart_send('B'); 
         }
-
-        if (UART->EVENTS_RXDRDY) {  // Sjekk om noe data er mottatt
-            UART->EVENTS_RXDRDY = 0; // Nullstill reciving data
+        
+        char received = uart_read();
+        if (received != '\0') {  // Sjekk om noe data er mottatt
 
             if (led_on) {
                 for (int i = 17; i <= 20; i++) { // Slå av alle LED-ene

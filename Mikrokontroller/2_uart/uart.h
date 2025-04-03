@@ -3,7 +3,7 @@
 
 void uart_init();
 void uart_send(char letter);
-void uart_read();
+char uart_read();
 
 
 
@@ -37,7 +37,7 @@ void uart_read();
     volatile uint32_t RESERVED8[31];
     volatile uint32_t ENABLE;
     volatile uint32_t RESERVED9[1];
-    volatile uint32_t PSELERTS;
+    volatile uint32_t PSELRTS;
     volatile uint32_t PSELTXD;
     volatile uint32_t PSELCTS;
     volatile uint32_t PSELRXD;

@@ -11,7 +11,7 @@
     UART -> PSELTXD = 6; // TXD pin
 
     UART -> BAUDRATE = 0x00275000; // From the datasheet, 9600 baud
-    UART -> PSELERTS = 0xFFFFFFFF; // No flow control
+    UART -> PSELRTS = 0xFFFFFFFF; // No flow control
     UART -> PSELCTS = 0xFFFFFFFF; // No flow control
 
     UART -> ENABLE = 4; // Enable the UART
@@ -20,7 +20,7 @@
  }
 
  void uart_send(char letter){
-    UART -> TASKS_STARTTX = 1; // Start receiving
+    UART -> TASKS_STARTTX = 1; // Start transmitting
     UART -> TXD = letter;
 
     while((UART -> EVENTS_TXDRDY) == 0); // Wait for the TXDRDY event
@@ -29,11 +29,13 @@
     //UART -> TASKS_STOPTX = 1; // stop transmitting
  }
 
- void uart_read(){
-    UART -> TASKS_STARTRX = 1; // Start receiving
-    while((UART -> EVENTS_RXDRDY) == 0); // Wait for the RXDRDY event
-    char letter = UART -> RXD; // Read the received data
-    UART -> EVENTS_RXDRDY = 0; // Clear the RXDRDY event
-
-    uart_send(letter); // Echo the received data
- }
+ char uart_read(){
+    if (UART->ENABLE != 4) {
+        return;
+    }
+    if (UART->EVENTS_RXDRDY == 0) {
+        return '\0'; 
+    }
+    UART->EVENTS_RXDRDY = 0; 
+    return UART->RXD;        
+}
