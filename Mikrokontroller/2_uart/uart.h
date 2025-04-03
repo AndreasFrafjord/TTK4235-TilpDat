@@ -1,7 +1,5 @@
 #pragma once
 #include <stdint.h>
-#include <stdio.h>
-#include <sys/types.h> // For ssize_t
 
 void uart_init();
 void uart_send(char letter);
