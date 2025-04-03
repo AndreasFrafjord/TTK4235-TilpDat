@@ -4,8 +4,8 @@
 
 
  void uart_init(){
-    GPIO -> PIN_CNF[8] = (0 << 0) | (1 << 2); // RXD (recive data)
-    GPIO -> PIN_CNF[6] = (1 << 0) | (1 << 2); // TXD (transmit data)
+    GPIO -> PIN_CNF[8] = 0 | (1 << 2); // RXD (recive data)
+    GPIO -> PIN_CNF[6] = 1 | (1 << 2); // TXD (transmit data)
 
     UART -> PSELRXD = 8; // RXD pin
     UART -> PSELTXD = 6; // TXD pin
