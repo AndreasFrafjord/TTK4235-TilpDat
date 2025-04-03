@@ -1,5 +1,4 @@
 #pragma once
-#include <gpio.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <sys/types.h> // For ssize_t
