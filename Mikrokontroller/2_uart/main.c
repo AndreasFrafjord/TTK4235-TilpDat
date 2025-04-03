@@ -18,16 +18,15 @@ int main(){
 
 
     uart_init();
-    char letter = 0;
     int led_on = 0;
     int sleep = 0;
 
     while (1) {
         if ((GPIO->IN & (1 << 13)) == 0) { 
-            uart_send("A");
+            uart_send('A');
         } 
         else if ((GPIO->IN & (1 << 14)) == 0) {
-            uart_send("B");
+            uart_send('B');
         }
 
     }
