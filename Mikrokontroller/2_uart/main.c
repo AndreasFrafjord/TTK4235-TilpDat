@@ -2,6 +2,20 @@
 #include "gpio.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <sys/types.h> 
+
+
+ssize_t _write(int fd, const void *buf, size_t count){
+    char * letter = (char *)(buf);
+    for(int i = 0; i < count; i++){
+    uart_send(*letter);
+    letter++;
+    }
+
+    return count;
+}
+
+
 
 int main() {
     for (int i = 17; i <= 20; i++) {
@@ -20,15 +34,17 @@ int main() {
 
     while (1) {
         if ((GPIO->IN & (1 << 13)) == 0) {  //sjekker om button 1 er trykket
+            iprintf("Button 1 pressed: Sending 'A'\n");
             uart_send('A'); 
         } 
         else if ((GPIO->IN & (1 << 14)) == 0) { //sjekker om button 2 er trykket
+            iprintf("Button 2 pressed: Sending 'B'\n");
             uart_send('B'); 
         }
         
         char received = uart_read();
         if (received != '\0') {  // Sjekk om noe data er mottatt
-
+            
             if (led_on) {
                 for (int i = 17; i <= 20; i++) { // Slå av alle LED-ene
                     GPIO->OUTSET = (1 << i);
