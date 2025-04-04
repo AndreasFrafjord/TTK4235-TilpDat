@@ -61,3 +61,4 @@ int main(){
 //Når de trykkes ned, blir de koblet til jord og dermed logisk lave. 
 
 //oppgave 1.3: Baseadressen til GPIO-modulen er 0x50000000.
+//GNU_PREFIX	:= arm-none-eabi

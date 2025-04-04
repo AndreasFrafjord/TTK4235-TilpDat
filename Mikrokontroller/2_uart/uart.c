@@ -3,6 +3,11 @@
 #include "gpio.h"
 
 
+
+
+
+
+
  void uart_init(){
     GPIO -> PIN_CNF[8] = 0 | (1 << 2); // RXD (recive data)
     GPIO -> PIN_CNF[6] = 1 | (1 << 2); // TXD (transmit data)
@@ -29,13 +34,11 @@
     //UART -> TASKS_STOPTX = 1; // stop transmitting
  }
 
- char uart_read(){
-    if (UART->ENABLE != 4) {
-        return;
-    }
+ char uart_read() {
     if (UART->EVENTS_RXDRDY == 0) {
-        return '\0'; 
+        return '\0'; // Ingen data tilgjengelig
     }
-    UART->EVENTS_RXDRDY = 0; 
-    return UART->RXD;        
+    UART->EVENTS_RXDRDY = 0; // Nullstill RXDRDY-hendelsen
+    char data = UART->RXD;
+    return data; // Returner mottatt data
 }

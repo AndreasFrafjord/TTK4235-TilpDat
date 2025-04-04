@@ -5,6 +5,7 @@
 #include <sys/types.h> 
 
 
+
 ssize_t _write(int fd, const void *buf, size_t count){
     char * letter = (char *)(buf);
     for(int i = 0; i < count; i++){
@@ -15,6 +16,11 @@ ssize_t _write(int fd, const void *buf, size_t count){
     return count;
 }
 
+void button_init(){ 
+	GPIO->PIN_CNF[13] = 0 | (3 << 2); // button 1
+	GPIO->PIN_CNF[14] = 0 | (3 << 2); // button 2
+    GPIO->PIN_CNF[15] = 0 | (3 << 2); // button 3
+}
 
 
 int main() {
@@ -23,38 +29,39 @@ int main() {
         GPIO->OUTCLR = (1 << i); // skrur dette leddmatrisen av eller på???
     }
 
-
-    GPIO->PIN_CNF[13] = 0 | (3 << 2); // Button 1
-    GPIO->PIN_CNF[14] = 0 | (3 << 2); // Button 2
-
     uart_init();
+    button_init(); 
 
-    int led_on = 0; 
+    //int led_on = 1; 
     int sleep = 0;
+    char A = 'A';
+    char B = 'B';
 
     while (1) {
         if ((GPIO->IN & (1 << 13)) == 0) {  //sjekker om button 1 er trykket
             iprintf("Button 1 pressed: Sending 'A'\n");
-            uart_send('A'); 
+            uart_send(A); 
         } 
         else if ((GPIO->IN & (1 << 14)) == 0) { //sjekker om button 2 er trykket
             iprintf("Button 2 pressed: Sending 'B'\n");
-            uart_send('B'); 
+            uart_send(B); 
+        }
+        else if ((GPIO->IN & (1 << 14)) == 0) {
+            iprintf("The average grade in TTK%d was in %d was: %c\n\r",4235,2022,B);
         }
         
         char received = uart_read();
         if (received != '\0') {  // Sjekk om noe data er mottatt
-            
-            if (led_on) {
+            if (GPIO-> OUT & (1 << 17)) {
                 for (int i = 17; i <= 20; i++) { // Slå av alle LED-ene
                     GPIO->OUTSET = (1 << i);
                 }
-                led_on = 0;
+                //led_on = 0;
             } else {
                 for (int i = 17; i <= 20; i++) { // Slå på alle LED-ene
                     GPIO->OUTCLR = (1 << i);
                 }
-                led_on = 1;
+                //led_on = 1;
             }
         }
 
