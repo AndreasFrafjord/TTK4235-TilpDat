@@ -18,3 +18,5 @@ typedef struct {
 } NRF_GPIO_REG;
 
 #endif
+
+void gpiote_init();
