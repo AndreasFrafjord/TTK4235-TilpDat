@@ -2,6 +2,8 @@
 #define GPIOTE_H
 #include <stdint.h>
 
+void gpiote_init();
+
 #define GPIOTE ((NRF_GPIOTE_REG*)0x40006000)
 
 typedef struct {
@@ -24,7 +26,7 @@ typedef struct {
 
 #endif
 
-void gpiote_init();
+
 
 // volatile uint32_t TASKS_OUT[0];
 // volatile uint32_t TASKS_OUT[1];

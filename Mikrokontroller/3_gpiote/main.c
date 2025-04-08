@@ -4,6 +4,7 @@
 
 
 int main() {
+    button_init();
     gpiote_init(); 
     ppi_init();
     while (1) {

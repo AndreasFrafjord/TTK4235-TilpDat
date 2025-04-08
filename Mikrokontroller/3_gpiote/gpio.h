@@ -2,6 +2,8 @@
 #define GPIO_H
 #include <stdint.h>
 
+void button_init();
+
 #define GPIO ((NRF_GPIO_REG*)0x50000000)
 
 typedef struct {
@@ -19,4 +21,3 @@ typedef struct {
 
 #endif
 
-void gpiote_init();

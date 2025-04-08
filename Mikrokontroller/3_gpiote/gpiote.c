@@ -8,6 +8,7 @@ void gpiote_init() {
                         (13 << 8) | // Pin: P0.13 (BUTTON 1)
                         (2 << 16);  // Polarity: HiToLo (høy til lav)
 
+    GPIOTE-> EVENTS_IN[0] = 0;
     // LED 1
     GPIOTE->CONFIG[1] =  3|  // Mode: Task
                         (17 << 8) | // Pin: P0.17
@@ -29,8 +30,4 @@ void gpiote_init() {
                         (3 << 16);  // Polarity: Toggle
 
 
-    GPIO->OUTSET = (1 << 17); // Start med P0.17 lav
-    GPIO->OUTSET = (1 << 18); // Start med P0.18 lav
-    GPIO->OUTSET = (1 << 19); // Start med P0.19 lav
-    GPIO->OUTCLR = (1 << 20); // Start med P0.20 høy
 }

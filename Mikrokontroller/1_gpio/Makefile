@@ -1,5 +1,5 @@
 FAMILY := nrf52
-SOURCES := main.c gpiote.c gpio.h ppi.h
+SOURCES := main.c
 
 BUILD_DIR := build
 BUILD_SYS := .build_system

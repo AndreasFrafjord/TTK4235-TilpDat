@@ -4,6 +4,8 @@
 #include "gpio.h"
 #include "gpiote.h"
 
+void ppi_init();
+
 #define PPI ((NRF_PPI_REG*)0x4001F000)
 
 typedef struct {
@@ -31,6 +33,6 @@ typedef struct {
 } NRF_PPI_REG;
 
 
-void ppi_init();
+
 
 #endif
