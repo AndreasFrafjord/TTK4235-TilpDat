@@ -8,7 +8,7 @@ void gpiote_init() {
                         (13 << 8) | // Pin: P0.13 (BUTTON 1)
                         (2 << 16);  // Polarity: HiToLo (høy til lav)
 
-    GPIOTE-> EVENTS_IN[0] = 0;
+    // GPIOTE-> EVENTS_IN[0] = 0;
     // LED 1
     GPIOTE->CONFIG[1] =  3|  // Mode: Task
                         (17 << 8) | // Pin: P0.17

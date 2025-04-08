@@ -27,7 +27,7 @@ int main(){
 	// Configure LED Matrix
 	for(int i = 17; i <= 20; i++){
 		GPIO->DIRSET = (1 << i);
-		GPIO->OUTSET = (1 << i);
+		GPIO->OUTSET = (1 << i); // slår led av, noe som vil si at led er aktiv lave
 	}
 
 	// Configure buttons -> see button_init()
@@ -40,12 +40,12 @@ int main(){
     while (1) {
         if ((GPIO->IN & (1 << 13)) == 0) { 
             for (int i = 17; i <= 20; i++) {
-                GPIO->OUTCLR = (1 << i);
+                GPIO->OUTCLR = (1 << i); // slår led på
             }
         } 
         else if ((GPIO->IN & (1 << 14)) == 0) { 
             for (int i = 17; i <= 20; i++) {
-                GPIO->OUTSET = (1 << i);
+                GPIO->OUTSET = (1 << i); //slår led av
             }
         }
 
