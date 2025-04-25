@@ -6,7 +6,7 @@ BUILD_SYS := .build_system
 LINKER_SCRIPT := $(BUILD_SYS)/linker_script_nrf52.ld
 
 
-GNU_PREFIX	:= /Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/bin/arm-none-eabi
+GNU_PREFIX	:= arm-none-eabi
 CC			:= $(GNU_PREFIX)-gcc
 OBJCOPY		:= $(GNU_PREFIX)-objcopy
 OBJDUMP		:= $(GNU_PREFIX)-objdump

@@ -62,3 +62,4 @@ int main(){
 
 //oppgave 1.3: Baseadressen til GPIO-modulen er 0x50000000.
 //GNU_PREFIX	:= arm-none-eabi
+//GNU_PREFIX	:= /Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/bin/arm-none-eabi
